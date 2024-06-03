@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const signup = require('./routes/Signup');
 const login = require('./routes/Login');
-const profiles = require('./routes/Profile'); 
+const profiles = require('./routes/Profile');  
 
 const app = express();
 

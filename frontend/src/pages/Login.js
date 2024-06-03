@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/api';
-import './Login.css'; 
+import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +19,10 @@ const Login = () => {
     } catch (error) {
       setError(String(error));
     }
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup'); 
   };
 
   return (
@@ -42,6 +46,7 @@ const Login = () => {
             />
           </div>
           <button type="submit">Login</button>
+          <button type="button" onClick={handleSignUp}>Sign Up</button>
         </form>
         {error && <p className="error-message">{error}</p>}
       </div>

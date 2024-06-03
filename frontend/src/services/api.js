@@ -75,3 +75,55 @@ export const deleteProfile = async (profileId) => {
     }
   }
 };
+
+// Função para adicionar um filme à lista de favoritos
+export async function addToFavorites(userId, profileId, movieId) {
+  try {
+    const response = await api.post(`/profiles/${profileId}/favorites`, { movieId });
+    return response.data;
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
+  }
+}
+
+// Função para selecionar um perfil
+export async function selectProfile(userId, profileId) {
+  try {
+    const response = await api.post(`/users/${userId}/select-profile`, { profileId });
+    return response.data;
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
+  }
+}
+
+export const updateProfile = async (userId, profileId, updatedProfile) => {
+  try {
+    // Verifica se o usuário tem permissão para atualizar o perfil (lógica de permissão)
+
+    // Encontra o perfil no banco de dados
+    const response = await api.get(`/profiles/${profileId}`);
+    const existingProfile = response.data;
+
+    // Verifica se o perfil foi encontrado
+    if (!existingProfile) {
+      throw new Error('Profile not found');
+    }
+
+    // Verifica se o perfil pertence ao usuário
+    if (existingProfile.userId !== userId) {
+      throw new Error('You do not have permission to update this profile');
+    }
+
+    // Atualiza os campos do perfil com os novos valores fornecidos
+    const updatedFields = { ...existingProfile, ...updatedProfile };
+
+    // Salva as mudanças no banco de dados
+    await api.put(`/profiles/${profileId}`, updatedFields);
+
+    return { success: true, message: 'Profile updated successfully' };
+  } catch (error) {
+    throw new Error('Error updating profile: ' + error.message);
+  }
+};

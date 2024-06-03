@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/Users');
+const bcrypt = require('bcrypt');
 
-// Rota para cadastro de usuário
 router.post('/Signup', async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -11,8 +11,12 @@ router.post('/Signup', async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: 'Email já cadastrado' });
     }
-    // Cria um novo usuário
-    const newUser = new User({ name, email, password });
+
+    // Hash da senha antes de salvar o usuário
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Cria um novo usuário com a senha hash
+    const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {

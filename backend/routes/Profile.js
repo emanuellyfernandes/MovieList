@@ -47,5 +47,17 @@ router.post('/profiles', async (req, res) => {
     }
   });
   
+  router.get('/profiles/:profileId/favorites', async (req, res) => {
+    const { profileId } = req.params;
+    try {
+      const profile = await Profile.findById(profileId).populate('favorites'); // Supondo que 'favorites' é um campo no esquema do Profile que referencia filmes
+      if (!profile) {
+        return res.status(404).json({ message: 'Perfil não encontrado' });
+      }
+      res.status(200).json(profile.favorites);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao obter favoritos', error: error.message });
+    }
+  });
 
 module.exports = router;
