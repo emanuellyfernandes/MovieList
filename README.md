@@ -1,4 +1,4 @@
-Projeto criado utilizando Node.js, React e MongoDb.
+<h2>Movie List</h2>
 
 1.Tela de Login
 ![image](https://github.com/emanuellyfernandes/MovieList/assets/96790607/d359f9bb-8d51-4a27-b579-e366c88bb1fa)
@@ -21,4 +21,22 @@ Projeto criado utilizando Node.js, React e MongoDb.
 
 
 *Ainda falta fazer muitas coisas e algumas funções não estão funcionando corretamente
+
+
+
+* Projeto criado utilizando Node.js, React e MongoDb.
+* O projeto está dividido em backend e frontend
+* Para rodar o backend
+  
+              node server.js
+  
+* Para rodar o frontend
+  
+              npm start
+
+  
+* O backend estará rodando em http://localhost:3000
+
+* O frontend está rodando em http://localhost:3001
+
 
